@@ -1,6 +1,6 @@
 #include "../opcoes.h"
 
-void venderCripto(char *usuario) {
+void venderCripto(char *usuario, struct moedas *informacoes) {
   int continuar = 1;
   while (continuar) {
     // Obtém os dados do usuário primeiro para mostrar os saldos
@@ -138,10 +138,13 @@ void venderCripto(char *usuario) {
     // Atualiza saldos
     if (strcmp(criptoEscolhida, "bitcoin") == 0) {
       editaArquivo(usuario, "bitcoin", bitcoinAtual - quantidade);
+      informacoes->valor[0] = bitcoinAtual - quantidade;
     } else if (strcmp(criptoEscolhida, "ethereum") == 0) {
       editaArquivo(usuario, "ethereum", ethereumAtual - quantidade);
+      informacoes->valor[1] = ethereumAtual - quantidade;
     } else {
       editaArquivo(usuario, "ripple", rippleAtual - quantidade);
+      informacoes->valor[2] = rippleAtual - quantidade;
     }
 
     editaArquivo(usuario, "saldo", saldoAtual + valorLiquido);

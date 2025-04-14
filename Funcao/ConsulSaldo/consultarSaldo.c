@@ -1,15 +1,18 @@
 #include "../opcoes.h"
 
-void saldo() {
+//obtem o struct com as informacoes da moeda do usuario
+void saldo(struct moedas *informacoes) {
   system("clear");
-  int i, saldos[4] = {100, 2, 20, 15};
-  char *qtd_moedas[4] = {"Real", "Bitcoin", "Etherium", "Ripple"};
-  setlocale(LC_ALL, "");
-  printf("-----------------------\nesses são seus saldos em respectivas "
-         "moedas\n-----------------------\n");
-  for (i = 0; i < sizeof(saldos) / sizeof(saldos[0]); i++) {
-    printf("saldo em %s: %d\n\n", qtd_moedas[i], saldos[i]);
-  }
+    int i;
 
+    setlocale(LC_ALL, "");
+    printf("-----------------------\nesses são seus saldos em respectivas "
+           "moedas\n-----------------------\n");
+  //exibe por referencias os respectivos valores das moedas do usuario
+  printf("saldo em reais: %f\n", informacoes->saldo_reais);
+  for(i=0;i<informacoes->total_moedas;i++){
+      printf("%s : %.2f\n", informacoes->nome_moeda[i], informacoes->valor[i]);
+    }
+  
   sleep(5);
 }

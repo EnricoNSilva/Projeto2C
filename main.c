@@ -2,6 +2,9 @@
 
 int alternativa(int num, char*cpf);
 void menu();
+//declara structs globais para acesso de outros arquivos e funções
+struct dados usuario;
+struct moedas moedas;
 
 int alternativa(int num, char*cpf) {
   char senha[100];
@@ -10,7 +13,7 @@ int alternativa(int num, char*cpf) {
     printf("Digite sua senha para consultar o saldo: ");
     scanf("%s", senha);
     if (verificarSenha(cpf, senha)) {
-    saldo();
+    saldo(&moedas);
     } else {
     printf("Senha incorreta.\n");
     }
@@ -29,21 +32,35 @@ int alternativa(int num, char*cpf) {
         return 1;
         }
 
-
-
-
   case 3:
-    // deposito();
-    printf("deposito ainda em desenvolvimento\n");
-    break;
+    while(1){
+      printf("Digite sua senha para efetuar o deposito: ");
+      scanf("%s", senha);
+        if (verificarSenha(cpf, senha)) {
+      deposito(cpf, &moedas);
+      }   else {
+          printf("\nSenha incorreta. Tente novamente.\n\n");
+          sleep(2);
+          }
+          return 1;
+          }
 
   case 4:
     consultarExtrato(cpf);
     break;
 
   case 5:
-    comprarCripto();
-    printf("escolheu comprar criptomoedas\n");
+    while(1){
+      printf("Digite sua senha para comprar criptomoeda: ");
+      scanf("%s", senha);
+        if (verificarSenha(cpf, senha)) {
+          comprarCripto(cpf, &moedas);
+      }   else {
+          printf("\nSenha incorreta. Tente novamente.\n\n");
+          sleep(2);
+          }
+          return 1;
+          }
     break;
 
   case 6:
@@ -51,7 +68,7 @@ int alternativa(int num, char*cpf) {
       printf("Digite sua senha para vender criptomoeda: ");
       scanf("%s", senha);
         if (verificarSenha(cpf, senha)) {
-          venderCripto(cpf);
+          venderCripto(cpf, &moedas);
       }   else {
           printf("\nSenha incorreta. Tente novamente.\n\n");
           sleep(2);
@@ -60,9 +77,17 @@ int alternativa(int num, char*cpf) {
           }
 
   case 7:
-    // att_cotacao();
-    printf("Atualizar cotações em desenvolvimento\n");
-    break;
+    while(1){
+      printf("Digite sua senha para atualizar cotações: ");
+      scanf("%s", senha);
+        if (verificarSenha(cpf, senha)) {
+          atualizarcotacao();
+      }   else {
+          printf("\nSenha incorreta. Tente novamente.\n\n");
+          sleep(2);
+          }
+          return 1;
+          }
 
   case 8:
     system("clear");
@@ -105,8 +130,22 @@ char* realizarLogin() { // Modificado para retornar o CPF
     printf("Digite sua senha: ");
     scanf("%s", senha);
 
+    char **dadosUsuario = importarInfo(cpf); // Obtém os dados do usuário
   if (verificarSenha(cpf, senha)) {
     printf("\nLogin realizado com sucesso!\n");
+
+    usuario.cpf = atoi(dadosUsuario[0]);
+    usuario.senhas = atoi(dadosUsuario[1]);
+    moedas.saldo_reais = atof(dadosUsuario[2]);
+    moedas.total_moedas = 3;
+    moedas.cpf_moedas = atoi(dadosUsuario[1]);
+    moedas.nome_moeda[0] = "bitcoin";
+    moedas.nome_moeda[1] = "ethereum";
+    moedas.nome_moeda[2] = "ripple";
+    moedas.valor[0] = atof(dadosUsuario[3]);
+    moedas.valor[1] = atof(dadosUsuario[4]);
+    moedas.valor[2] = atof(dadosUsuario[5]);
+    
       return cpf; // Retorna o CPF alocado  
         } else {
           printf("\nCredenciais incorretas. Tente novamente.\n\n");
@@ -125,7 +164,7 @@ int main() {
     return 1;
   }
   while (1) {
-    system("clear");
+    //system("clear");
     menu();
     scanf("%d", &entrada);
     alternativa(entrada, cpfUsuario); // Passa o CPF para a função alternativa
