@@ -22,7 +22,7 @@ Estudantes do curso de Ciências da Computação, atualmente no Segundo Ciclo<br
 
 <p><u>obtenha</u> o ZIP contendo todos os arquivos do programa e extraia de dentro do .ZIP</p>
 <li>Se estiver no windows execute o .exe disponível na pasta</li>
-<li>Para outras plataformas busque acessar o replit importando os arquivos para o site</li>
+<li>Para outras plataformas busque acessar o replit importando os arquivos para o site/ no caso, se houver problemas, deixe o informacoesUsu.txt fora da pasta para que o programa detecte usuario e senha</li>
 <li>Link para o projeto no replit: <a href="https://replit.com/@feitrabalhos829/ProjetoFinal">replit</a><br>
 
 <br>
